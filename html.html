@@ -1,0 +1,3016 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#0b1320">
+    <meta name="description" content="BUILDPRO: sistema integral de gestión para empresas constructoras. Obras, clientes, empleados, presupuestos, materiales y herramientas.">
+
+    <title>BUILDPRO | Gestión Constructiva</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #0b1320;
+    --bg-dark: #080f19;
+    --panel: #111c2a;
+    --panel-light: #152438;
+    --yellow: #f4b400;
+    --yellow-light: #ffd04a;
+    --white: #f5f7fa;
+    --muted: #a5b0bf;
+    --border: rgba(255,255,255,.09);
+    --font: 'DM Sans', sans-serif;
+    --heading: 'Manrope', sans-serif;
+    --container: 1180px;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+}
+
+body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--white);
+    line-height: 1.65;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    font-family: inherit;
+}
+
+.container {
+    width: min(var(--container), calc(100% - 48px));
+    margin: auto;
+}
+
+
+/* HEADER */
+
+.header {
+    height: 82px;
+    position: fixed;
+    z-index: 100;
+    inset: 0 0 auto;
+    background: rgba(8,15,25,.78);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid transparent;
+    transition: .3s;
+}
+
+.header.scrolled {
+    height: 72px;
+    border-color: var(--border);
+    background: rgba(8,15,25,.96);
+}
+
+.nav-container,
+.logo,
+.nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav-container {
+    height: 100%;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.logo {
+    gap: 11px;
+    flex-shrink: 0;
+}
+
+.logo-icon {
+    width: 43px;
+    height: 43px;
+    border-radius: 13px;
+    background: var(--yellow);
+    color: #111923;
+    display: grid;
+    place-items: center;
+    font-size: 19px;
+    box-shadow: 0 7px 24px rgba(244,180,0,.2);
+}
+
+.logo-text {
+    font: 800 18px var(--heading);
+    letter-spacing: 1px;
+    line-height: 1.1;
+}
+
+.logo-text span {
+    color: var(--yellow);
+}
+
+.logo-text small {
+    display: block;
+    font: 700 8px var(--font);
+    letter-spacing: 2px;
+    color: #8492a4;
+    margin-top: 5px;
+}
+
+.nav {
+    gap: 27px;
+}
+
+.nav-link {
+    font-size: 12px;
+    font-weight: 700;
+    color: #b6c0cc;
+    position: relative;
+    transition: .2s;
+}
+
+.nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -9px;
+    width: 0;
+    height: 2px;
+    background: var(--yellow);
+    transition: .25s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: white;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+
+.menu-toggle {
+    display: none;
+}
+
+
+/* HERO */
+
+.hero {
+    min-height: 760px;
+    padding: 145px 0 100px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at 78% 45%, rgba(244,180,0,.10), transparent 34%),
+        linear-gradient(120deg,#0b1320,#0d1928 70%,#111e2c);
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    width: 570px;
+    height: 570px;
+    border: 1px solid rgba(244,180,0,.10);
+    border-radius: 50%;
+    right: -150px;
+    top: 70px;
+    box-shadow:
+        0 0 0 70px rgba(244,180,0,.025),
+        0 0 0 140px rgba(244,180,0,.015);
+    pointer-events: none;
+}
+
+.hero-background {
+    position: absolute;
+    inset: 0;
+    opacity: .12;
+    background-image:
+        linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.08) 1px, transparent 1px);
+    background-size: 65px 65px;
+    mask-image: linear-gradient(90deg,#000,transparent 90%);
+}
+
+.hero-container {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 45px;
+    align-items: center;
+}
+
+.hero-content {
+    max-width: 570px;
+}
+
+.hero-label,
+.section-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    font-weight: 800;
+    color: var(--yellow);
+}
+
+.hero-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 22px;
+}
+
+.hero-label span {
+    width: 7px;
+    height: 7px;
+    background: var(--yellow);
+    border-radius: 50%;
+    box-shadow: 0 0 0 5px rgba(244,180,0,.13);
+}
+
+.hero h1 {
+    font: 800 clamp(43px,5.4vw,69px)/1.1 var(--heading);
+    letter-spacing: -3px;
+}
+
+.hero h1 span {
+    display: block;
+    color: var(--yellow);
+}
+
+.hero-content > p {
+    max-width: 540px;
+    color: #aeb9c8;
+    font-size: 15px;
+    line-height: 1.9;
+    margin: 24px 0 28px;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-dark {
+    min-height: 51px;
+    padding: 0 20px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 11px;
+    font-size: 12px;
+    font-weight: 800;
+    transition: .25s;
+}
+
+.btn-primary {
+    background: var(--yellow);
+    color: #111923;
+    box-shadow: 0 10px 28px rgba(244,180,0,.15);
+}
+
+.btn-primary:hover {
+    background: var(--yellow-light);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(244,180,0,.3);
+}
+
+.btn-secondary {
+    border: 1px solid rgba(255,255,255,.2);
+    background: rgba(255,255,255,.025);
+}
+
+.btn-secondary:hover {
+    border-color: var(--yellow);
+    background: rgba(244,180,0,.06);
+    transform: translateY(-3px);
+}
+
+.hero-security {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 40px;
+}
+
+.security-icon {
+    width: 39px;
+    height: 39px;
+    border-radius: 11px;
+    background: rgba(244,180,0,.12);
+    color: var(--yellow);
+    display: grid;
+    place-items: center;
+}
+
+.hero-security strong,
+.hero-security small {
+    display: block;
+}
+
+.hero-security strong {
+    font-size: 11px;
+}
+
+.hero-security small {
+    font-size: 10px;
+    color: #8e9cad;
+    margin-top: 3px;
+}
+
+
+/* HERO VISUAL */
+
+.hero-visual {
+    position: relative;
+    padding: 35px 0;
+    min-width: 0;
+}
+
+.visual-glow {
+    position: absolute;
+    inset: 12%;
+    background: var(--yellow);
+    filter: blur(100px);
+    opacity: .12;
+    border-radius: 50%;
+}
+
+.dashboard-preview {
+    position: relative;
+    z-index: 2;
+    border: 1px solid rgba(255,255,255,.13);
+    border-radius: 18px;
+    background: #101c2a;
+    box-shadow: 0 35px 90px rgba(0,0,0,.5);
+    overflow: hidden;
+    transform: perspective(1200px) rotateY(-5deg) rotateX(2deg);
+    transition: .5s;
+}
+
+.dashboard-preview:hover {
+    transform: perspective(1200px) rotateY(0) rotateX(0) translateY(-5px);
+}
+
+.preview-header {
+    height: 52px;
+    background: #142234;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 19px;
+    font-size: 11px;
+}
+
+.preview-brand {
+    font: 800 12px var(--heading);
+    letter-spacing: 1px;
+}
+
+.preview-brand i {
+    color: var(--yellow);
+    margin-right: 7px;
+}
+
+.preview-status {
+    font-size: 9px;
+    color: #a5b0bf;
+}
+
+.preview-status span {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: #50c78b;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+
+.preview-content {
+    padding: 0 21px;
+}
+
+.preview-heading {
+    padding: 22px 0 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.preview-heading small {
+    font-size: 8px;
+    letter-spacing: 1.5px;
+    color: #8997a8;
+}
+
+.preview-heading h3 {
+    font: 700 19px var(--heading);
+    margin-top: 4px;
+}
+
+.preview-heading > i {
+    color: #8492a4;
+}
+
+.preview-stats {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 9px;
+    padding-bottom: 15px;
+}
+
+.stat-card {
+    background: #172638;
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 10px;
+    padding: 11px;
+}
+
+.stat-icon {
+    display: grid;
+    place-items: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 7px;
+    font-size: 11px;
+    margin-bottom: 8px;
+}
+
+.stat-icon.yellow {
+    background: rgba(244,180,0,.1);
+    color: var(--yellow);
+}
+
+.stat-icon.blue {
+    background: rgba(109,174,255,.1);
+    color: #6daeff;
+}
+
+.stat-icon.green {
+    background: rgba(85,212,156,.1);
+    color: #55d49c;
+}
+
+.stat-card small,
+.stat-card strong,
+.stat-card span {
+    display: block;
+}
+
+.stat-card small {
+    font-size: 8px;
+    color: #9aa7b7;
+}
+
+.stat-card strong {
+    font: 700 12px var(--heading);
+    margin: 2px 0;
+}
+
+.stat-card span {
+    font-size: 8px;
+    color: #8291a4;
+}
+
+.preview-main {
+    display: grid;
+    grid-template-columns: 1.5fr .8fr;
+    gap: 9px;
+    padding-bottom: 17px;
+}
+
+.preview-panel {
+    background: #172638;
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 10px;
+    padding: 12px;
+}
+
+.panel-title {
+    display: flex;
+    justify-content: space-between;
+    font-size: 9px;
+    margin-bottom: 7px;
+}
+
+.panel-title span {
+    font-size: 8px;
+    color: #8291a4;
+}
+
+.preview-row {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 0;
+    border-top: 1px solid rgba(255,255,255,.05);
+}
+
+.row-icon {
+    width: 27px;
+    height: 27px;
+    border-radius: 7px;
+    background: rgba(244,180,0,.1);
+    color: var(--yellow);
+    display: grid;
+    place-items: center;
+    font-size: 10px;
+}
+
+.preview-row > div:nth-child(2) {
+    flex: 1;
+}
+
+.preview-row strong,
+.preview-row small {
+    display: block;
+}
+
+.preview-row strong {
+    font-size: 9px;
+}
+
+.preview-row small {
+    font-size: 8px;
+    color: #8997a8;
+}
+
+.preview-row > i {
+    font-size: 8px;
+    color: #77869a;
+}
+
+.preview-side {
+    background: #172638;
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+}
+
+.preview-side > strong {
+    font-size: 9px;
+}
+
+.circle-progress {
+    width: 100px;
+    height: 100px;
+    margin: 10px auto;
+    border-radius: 50%;
+    background: conic-gradient(var(--yellow) 0 78%, #2b3b4e 78%);
+    display: grid;
+    place-items: center;
+    position: relative;
+}
+
+.circle-progress::before {
+    content: "";
+    position: absolute;
+    inset: 9px;
+    border-radius: 50%;
+    background: #172638;
+}
+
+.circle-progress > div {
+    position: relative;
+}
+
+.circle-progress b {
+    display: block;
+    font: 800 20px var(--heading);
+}
+
+.circle-progress small {
+    display: block;
+    font-size: 7px;
+    letter-spacing: 1px;
+    color: #9ca9b8;
+}
+
+.preview-side > small {
+    font-size: 8px;
+    color: #9aa7b7;
+}
+
+.preview-footer {
+    border-top: 1px solid var(--border);
+    padding: 11px 21px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 8px;
+    color: #8997a8;
+}
+
+.preview-footer i {
+    color: var(--yellow);
+    margin-right: 5px;
+}
+
+.floating-card {
+    position: absolute;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #19283a;
+    border: 1px solid rgba(255,255,255,.15);
+    padding: 11px 14px;
+    border-radius: 11px;
+    box-shadow: 0 15px 35px rgba(0,0,0,.35);
+    animation: floating 5s ease-in-out infinite;
+}
+
+.floating-card > i {
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    border-radius: 8px;
+    background: rgba(244,180,0,.12);
+    color: var(--yellow);
+}
+
+.floating-card strong,
+.floating-card small {
+    display: block;
+}
+
+.floating-card strong {
+    font-size: 9px;
+}
+
+.floating-card small {
+    font-size: 8px;
+    color: #9aa7b7;
+}
+
+.floating-one {
+    top: 0;
+    right: -20px;
+}
+
+.floating-two {
+    bottom: 0;
+    left: -20px;
+    animation-delay: -2.5s;
+}
+
+@keyframes floating {
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 23px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: #8190a1;
+}
+
+.scroll-indicator span {
+    width: 15px;
+    height: 25px;
+    border: 1px solid #718094;
+    border-radius: 12px;
+    position: relative;
+}
+
+.scroll-indicator span::after {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 6px;
+    width: 2px;
+    height: 5px;
+    background: var(--yellow);
+    animation: scrollDown 1.4s infinite;
+}
+
+@keyframes scrollDown {
+    to {
+        transform: translateY(8px);
+        opacity: 0;
+    }
+}
+
+
+/* TICKER */
+
+.ticker {
+    background: #101c2a;
+    border-block: 1px solid var(--border);
+}
+
+.ticker-content {
+    min-height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    color: #aeb9c6;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.ticker-content i {
+    color: var(--yellow);
+}
+
+
+/* SECCIONES GENERALES */
+
+.section {
+    padding: 105px 0;
+}
+
+.about,
+.profiles {
+    background: #0d1724;
+}
+
+.section-heading {
+    max-width: 720px;
+}
+
+.centered {
+    text-align: center;
+    margin: auto;
+}
+
+.section-heading h2,
+.workflow-text h2,
+.client-description h2 {
+    font: 800 clamp(32px,4vw,47px)/1.17 var(--heading);
+    letter-spacing: -1.7px;
+    margin: 16px 0;
+}
+
+.section-heading h2 span,
+.workflow-text h2 span,
+.client-description h2 span {
+    color: var(--yellow);
+}
+
+.section-heading > p {
+    max-width: 680px;
+    margin: auto;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.9;
+}
+
+
+/* BENEFICIOS */
+
+.benefit-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 17px;
+    margin-top: 50px;
+}
+
+.benefit-card {
+    padding: 27px;
+    background: linear-gradient(145deg,#142234,#101b29);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    transition: .35s;
+}
+
+.benefit-card:hover,
+.module-card:hover,
+.profile-card:hover {
+    transform: translateY(-7px);
+    border-color: rgba(244,180,0,.5);
+    box-shadow: 0 20px 45px rgba(0,0,0,.25);
+}
+
+.benefit-icon,
+.module-icon {
+    width: 43px;
+    height: 43px;
+    border-radius: 12px;
+    background: rgba(244,180,0,.1);
+    color: var(--yellow);
+    display: grid;
+    place-items: center;
+    font-size: 17px;
+}
+
+.benefit-card h3 {
+    font: 700 16px var(--heading);
+    margin: 18px 0 8px;
+}
+
+.benefit-card p,
+.module-card p,
+.profile-card p {
+    font-size: 11px;
+    line-height: 1.85;
+    color: var(--muted);
+}
+
+
+/* MODULOS */
+
+.modules {
+    background: var(--bg);
+}
+
+.section-heading-split {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 45px;
+    margin-bottom: 38px;
+}
+
+.section-heading-split h2 {
+    margin-bottom: 0;
+}
+
+.section-heading-split > p {
+    max-width: 360px;
+    margin: 0;
+    padding-bottom: 5px;
+}
+
+.module-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 15px;
+}
+
+.module-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 245px;
+    padding: 23px;
+    background: linear-gradient(145deg,#142234,#101b29);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    transition: .35s;
+}
+
+.module-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.module-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 15px;
+}
+
+.module-top > span {
+    font-size: 8px;
+    letter-spacing: 1.2px;
+    font-weight: 800;
+    color: #8291a4;
+}
+
+.module-card h3 {
+    font: 700 17px var(--heading);
+    margin: 20px 0 8px;
+    position: relative;
+    z-index: 1;
+}
+
+.module-card p {
+    max-width: 320px;
+    position: relative;
+    z-index: 1;
+}
+
+.module-large {
+    grid-column: span 2;
+    min-height: 285px;
+}
+
+.module-large p {
+    max-width: 350px;
+}
+
+.module-tags {
+    display: flex;
+    gap: 7px;
+    margin-top: 17px;
+    position: relative;
+    z-index: 1;
+}
+
+.module-tags span {
+    font-size: 8px;
+    color: #bdc8d4;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,.03);
+    border-radius: 6px;
+    padding: 5px 8px;
+}
+
+.blueprint-decoration {
+    position: absolute;
+    right: 26px;
+    bottom: 18px;
+    width: 145px;
+    height: 125px;
+    border: 2px solid rgba(244,180,0,.45);
+    opacity: .65;
+    transform: skewY(-8deg);
+}
+
+.blueprint-decoration::before {
+    content: "";
+    position: absolute;
+    left: -12px;
+    top: -17px;
+    width: 145px;
+    height: 15px;
+    border: 2px solid rgba(244,180,0,.45);
+    transform: skewX(-45deg);
+}
+
+.blueprint-decoration div {
+    display: inline-block;
+    width: 18px;
+    height: 25px;
+    border: 1px solid rgba(244,180,0,.55);
+    margin: 22px 8px;
+}
+
+.blueprint-decoration div:last-child {
+    height: 42px;
+    margin-top: 5px;
+}
+
+.module-decoration {
+    position: absolute;
+    right: 20px;
+    bottom: 18px;
+    display: flex;
+    gap: 13px;
+    font-size: 34px;
+    color: rgba(244,180,0,.15);
+}
+
+.module-bars {
+    height: 48px;
+    display: flex;
+    align-items: end;
+    gap: 6px;
+    margin-top: 16px;
+}
+
+.module-bars i {
+    width: 11px;
+    border-radius: 4px 4px 0 0;
+    background: linear-gradient(var(--yellow),rgba(244,180,0,.12));
+    height: 35%;
+}
+
+.module-bars i:nth-child(2) { height: 60%; }
+.module-bars i:nth-child(3) { height: 44%; }
+.module-bars i:nth-child(4) { height: 85%; }
+.module-bars i:nth-child(5) { height: 66%; }
+.module-bars i:nth-child(6) { height: 95%; }
+
+.people-decoration {
+    display: flex;
+    margin-top: 18px;
+}
+
+.people-decoration span {
+    font-size: 7px;
+    font-weight: 800;
+    width: 29px;
+    height: 29px;
+    border: 2px solid #142234;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    margin-left: -5px;
+    background: #405c78;
+}
+
+.people-decoration span:first-child {
+    margin: 0;
+}
+
+.people-decoration span:nth-child(2) { background: #806d49; }
+.people-decoration span:nth-child(3) { background: #47766d; }
+.people-decoration span:last-child {
+    background: var(--yellow);
+    color: #111923;
+}
+
+.module-wide {
+    grid-column: span 3;
+    min-height: 175px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.module-wide h3 {
+    margin: 15px 0 7px;
+}
+
+.module-wide p {
+    max-width: 480px;
+}
+
+.role-tags {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 8px;
+    max-width: 370px;
+}
+
+.role-tags span {
+    font-size: 9px;
+    color: #c3ced9;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 9px 11px;
+    background: rgba(255,255,255,.025);
+}
+
+
+/* FLUJO */
+
+.workflow {
+    background: #111e2d;
+    position: relative;
+    overflow: hidden;
+}
+
+.workflow::after {
+    content: "";
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    right: -200px;
+    bottom: -240px;
+    border-radius: 50%;
+    background: rgba(244,180,0,.1);
+    filter: blur(55px);
+}
+
+.workflow-container {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: .8fr 1.2fr;
+    gap: 90px;
+    align-items: center;
+}
+
+.workflow-text h2 {
+    font-size: clamp(38px,4.4vw,53px);
+}
+
+.workflow-text > p {
+    max-width: 340px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.9;
+    margin: 18px 0 23px;
+}
+
+.text-link {
+    font-size: 11px;
+    color: var(--yellow);
+    font-weight: 800;
+}
+
+.text-link i {
+    margin-left: 7px;
+    transition: .2s;
+}
+
+.text-link:hover i {
+    transform: translateX(5px);
+}
+
+.workflow-steps {
+    border-left: 1px solid rgba(244,180,0,.35);
+    padding-left: 27px;
+}
+
+.step {
+    display: grid;
+    grid-template-columns: 25px 42px 1fr 15px;
+    align-items: center;
+    gap: 13px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.step:last-child {
+    border: 0;
+}
+
+.step > b {
+    font: 800 10px var(--heading);
+    color: #7f8da0;
+}
+
+.step-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 11px;
+    background: rgba(244,180,0,.1);
+    color: var(--yellow);
+    display: grid;
+    place-items: center;
+}
+
+.step h3 {
+    font: 700 14px var(--heading);
+    margin-bottom: 4px;
+}
+
+.step p {
+    font-size: 10px;
+    color: var(--muted);
+}
+
+.step-check {
+    color: #55c994;
+    font-size: 12px;
+}
+
+
+/* PERFILES */
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 13px;
+    margin-top: 43px;
+}
+
+.profile-card {
+    padding: 21px;
+    background: #132133;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    transition: .3s;
+}
+
+.profile-card > i {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    background: rgba(244,180,0,.1);
+    color: var(--yellow);
+    font-size: 15px;
+}
+
+.profile-card h3 {
+    font: 700 13px var(--heading);
+    margin: 14px 0 7px;
+}
+
+
+/* PORTAL CLIENTE */
+
+.client-section {
+    padding: 90px 0;
+    background: linear-gradient(115deg,#111e2d,#142438);
+}
+
+.client-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 85px;
+    align-items: center;
+}
+
+.client-preview {
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 16px;
+    background: #0e1927;
+    overflow: hidden;
+    box-shadow: 0 25px 65px rgba(0,0,0,.35);
+    transform: rotate(-2deg);
+    transition: .4s;
+}
+
+.client-preview:hover {
+    transform: rotate(0) translateY(-5px);
+}
+
+.client-preview-top {
+    height: 42px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 14px;
+    background: #1a2a3d;
+}
+
+.client-preview-top > span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #e26e62;
+}
+
+.client-preview-top > span:nth-child(2) { background: #e5b64c; }
+.client-preview-top > span:nth-child(3) { background: #55b982; }
+
+.client-preview-top b {
+    margin-left: auto;
+    font-size: 8px;
+    letter-spacing: 1.2px;
+    color: #9aa8b8;
+}
+
+.client-preview-content {
+    padding: 28px;
+}
+
+.client-preview-content > small {
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: var(--yellow);
+    font-weight: 800;
+}
+
+.client-preview-content h3 {
+    font: 800 25px var(--heading);
+    margin: 9px 0 22px;
+}
+
+.progress-bar {
+    height: 7px;
+    border-radius: 8px;
+    background: #27384c;
+    overflow: hidden;
+}
+
+.progress-bar span {
+    display: block;
+    width: 68%;
+    height: 100%;
+    background: linear-gradient(90deg,var(--yellow),#ffda63);
+    border-radius: 8px;
+}
+
+.progress-description {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 9px;
+    font-size: 9px;
+}
+
+.progress-description span {
+    color: #8f9dae;
+}
+
+.client-options {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 8px;
+    margin-top: 24px;
+}
+
+.client-options > div {
+    padding: 12px 7px;
+    background: #18283a;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    text-align: center;
+    font-size: 8px;
+    color: #c4ced9;
+}
+
+.client-options i {
+    display: block;
+    color: var(--yellow);
+    font-size: 15px;
+    margin-bottom: 7px;
+}
+
+.client-description h2 {
+    font-size: clamp(31px,3.8vw,44px);
+}
+
+.client-description > p {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.9;
+    margin: 16px 0 24px;
+    max-width: 470px;
+}
+
+
+/* CTA */
+
+.final-cta {
+    padding: 95px 0;
+}
+
+.cta-box {
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    padding: 70px 25px;
+    border-radius: 22px;
+    background: var(--yellow);
+    color: #111923;
+}
+
+.cta-box::after {
+    content: "";
+    position: absolute;
+    width: 360px;
+    height: 360px;
+    right: -100px;
+    top: -240px;
+    border: 1px solid rgba(16,23,34,.15);
+    border-radius: 50%;
+    box-shadow:
+        0 0 0 45px rgba(16,23,34,.025),
+        0 0 0 90px rgba(16,23,34,.02);
+}
+
+.cta-box > span {
+    font-size: 10px;
+    letter-spacing: 2px;
+    font-weight: 800;
+    color: #59440b;
+}
+
+.cta-box h2 {
+    font: 800 clamp(33px,4.5vw,51px)/1.15 var(--heading);
+    letter-spacing: -1.5px;
+    margin: 16px 0;
+}
+
+.cta-box h2 strong {
+    color: white;
+}
+
+.cta-box p {
+    max-width: 540px;
+    margin: 0 auto 24px;
+    color: #4d3c11;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.btn-dark {
+    position: relative;
+    background: #101a27;
+    color: white;
+}
+
+.btn-dark:hover {
+    background: #1d2d40;
+    transform: translateY(-3px);
+}
+
+
+/* FOOTER */
+
+.footer {
+    background: #080f19;
+    border-top: 1px solid var(--border);
+}
+
+.footer-main {
+    min-height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.footer-main > p {
+    max-width: 390px;
+    color: #8794a5;
+    font-size: 10px;
+}
+
+.back-top {
+    font-size: 10px;
+    font-weight: 800;
+    color: #c2ccd7;
+}
+
+.back-top i {
+    color: var(--yellow);
+    margin-left: 7px;
+}
+
+.footer-bottom {
+    min-height: 52px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #718094;
+    font-size: 9px;
+}
+
+
+/* ANIMACIONES DE ENTRADA */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(23px);
+    transition:
+        opacity .7s ease,
+        transform .7s cubic-bezier(.2,.7,.2,1);
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* TABLETS */
+
+@media (max-width: 1050px) {
+
+    .nav {
+        gap: 16px;
+    }
+
+    .nav-link {
+        font-size: 11px;
+    }
+
+    .hero-container {
+        gap: 25px;
+    }
+
+    .hero h1 {
+        font-size: 55px;
+    }
+
+    .floating-one {
+        right: -5px;
+    }
+
+    .floating-two {
+        left: -5px;
+    }
+
+    .workflow-container {
+        gap: 50px;
+    }
+
+    .client-container {
+        gap: 50px;
+    }
+}
+
+
+/* MENU RESPONSIVE */
+
+@media (max-width: 850px) {
+
+    .header {
+        height: 72px;
+    }
+
+    .menu-toggle {
+        display: grid;
+        place-items: center;
+        position: relative;
+        z-index: 102;
+        width: 42px;
+        height: 42px;
+        border: 1px solid var(--border);
+        background: var(--panel);
+        color: white;
+        border-radius: 9px;
+        font-size: 17px;
+        cursor: pointer;
+    }
+
+    .nav {
+        position: fixed;
+        inset: 72px 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 12px 24px 24px;
+        background: #0a1421;
+        border-bottom: 1px solid var(--border);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: .3s;
+    }
+
+    .nav.open {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .nav-link {
+        padding: 13px 0;
+        font-size: 13px;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .nav-link::after {
+        display: none;
+    }
+
+
+    .hero {
+        padding-top: 130px;
+    }
+
+    .hero-container {
+        grid-template-columns: 1fr;
+        gap: 55px;
+    }
+
+    .hero-content {
+        max-width: 700px;
+    }
+
+    .hero-visual {
+        width: min(100%,650px);
+        margin: auto;
+    }
+
+    .hero h1 {
+        font-size: clamp(44px,8vw,64px);
+    }
+
+    .hero-content > p {
+        max-width: 620px;
+    }
+
+    .section-heading-split {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .section-heading-split > p {
+        max-width: 600px;
+    }
+
+    .workflow-container {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .workflow-text > p {
+        max-width: 600px;
+    }
+
+    .client-container {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+
+    .client-preview {
+        width: min(100%,600px);
+        margin: auto;
+    }
+
+    .client-description {
+        max-width: 650px;
+    }
+
+    .profile-grid {
+        grid-template-columns: repeat(3,1fr);
+    }
+}
+
+
+/* CELULARES */
+
+@media (max-width: 600px) {
+
+    .container {
+        width: min(100% - 34px, var(--container));
+    }
+
+    .hero {
+        min-height: auto;
+        padding: 125px 0 90px;
+    }
+
+    .hero h1 {
+        font-size: 43px;
+        letter-spacing: -2px;
+    }
+
+    .hero-content > p {
+        font-size: 13px;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hero-actions .btn-primary,
+    .hero-actions .btn-secondary {
+        width: 100%;
+    }
+
+    .hero-security {
+        margin-top: 28px;
+    }
+
+    .hero-visual {
+        padding: 25px 0;
+    }
+
+    .dashboard-preview {
+        transform: none;
+    }
+
+    .preview-content {
+        padding: 0 12px;
+    }
+
+    .preview-header {
+        padding: 0 12px;
+    }
+
+    .preview-stats {
+        gap: 5px;
+    }
+
+    .stat-card {
+        padding: 8px;
+    }
+
+    .preview-main {
+        grid-template-columns: 1fr;
+    }
+
+    .preview-side {
+        display: none;
+    }
+
+    .floating-card {
+        padding: 8px 10px;
+    }
+
+    .floating-one {
+        right: -5px;
+        top: -12px;
+    }
+
+    .floating-two {
+        left: -5px;
+        bottom: -12px;
+    }
+
+    .floating-card > i {
+        width: 27px;
+        height: 27px;
+    }
+
+    .scroll-indicator {
+        display: none;
+    }
+
+    .ticker-content {
+        min-height: 65px;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 9px 14px;
+        padding: 15px 0;
+        font-size: 8px;
+    }
+
+    .section {
+        padding: 75px 0;
+    }
+
+    .section-heading h2,
+    .workflow-text h2,
+    .client-description h2 {
+        font-size: 34px;
+    }
+
+    .section-heading > p {
+        font-size: 12px;
+    }
+
+    .benefit-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-top: 32px;
+    }
+
+    .benefit-card {
+        padding: 22px;
+    }
+
+    .module-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .module-card,
+    .module-large,
+    .module-wide {
+        grid-column: auto;
+        min-height: 220px;
+    }
+
+    .module-large {
+        min-height: 260px;
+    }
+
+    .module-wide {
+        display: block;
+    }
+
+    .role-tags {
+        justify-content: flex-start;
+        margin-top: 22px;
+    }
+
+    .blueprint-decoration {
+        opacity: .35;
+        right: 10px;
+    }
+
+    .workflow-steps {
+        padding-left: 14px;
+    }
+
+    .step {
+        grid-template-columns: 20px 36px 1fr;
+        gap: 9px;
+    }
+
+    .step-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .step-check {
+        display: none;
+    }
+
+    .step h3 {
+        font-size: 12px;
+    }
+
+    .step p {
+        font-size: 9px;
+    }
+
+    .profile-grid {
+        grid-template-columns: repeat(2,1fr);
+        gap: 10px;
+        margin-top: 32px;
+    }
+
+    .profile-card {
+        padding: 16px;
+    }
+
+    .profile-card h3 {
+        font-size: 12px;
+    }
+
+    .profile-card p {
+        font-size: 10px;
+    }
+
+    .client-section {
+        padding: 70px 0;
+    }
+
+    .client-container {
+        gap: 35px;
+    }
+
+    .client-preview-content {
+        padding: 20px;
+    }
+
+    .client-options {
+        gap: 5px;
+    }
+
+    .client-options > div {
+        font-size: 7px;
+    }
+
+    .progress-description {
+        font-size: 8px;
+    }
+
+    .final-cta {
+        padding: 65px 0;
+    }
+
+    .cta-box {
+        padding: 55px 18px;
+    }
+
+    .cta-box h2 {
+        font-size: 35px;
+    }
+
+    .footer-main {
+        padding: 35px 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .footer-main > p {
+        max-width: 100%;
+    }
+
+    .footer-bottom {
+        padding: 15px 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 7px;
+    }
+}
+
+
+/* ACCESIBILIDAD */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header class="header" id="header">
+
+    <div class="container nav-container">
+
+        <a href="#inicio" class="logo">
+            <div class="logo-icon">
+                <i class="fa-solid fa-cubes-stacked"></i>
+            </div>
+
+            <div class="logo-text">
+                BUILD<span>PRO</span>
+                <small>GESTIÓN CONSTRUCTIVA</small>
+            </div>
+        </a>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <nav class="nav" id="nav">
+
+            <a href="#inicio" class="nav-link active">Inicio</a>
+            <a href="#nosotros" class="nav-link">Plataforma</a>
+            <a href="#modulos" class="nav-link">Funcionalidades</a>
+            <a href="#perfiles" class="nav-link">Perfiles</a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+<main>
+
+<!-- ================= HERO ================= -->
+
+<section class="hero" id="inicio">
+
+    <div class="hero-background"></div>
+
+    <div class="container hero-container">
+
+        <div class="hero-content reveal">
+
+            <div class="hero-label">
+                <span></span>
+                SISTEMA INTEGRAL DE GESTIÓN
+            </div>
+
+            <h1>
+                Construí el futuro.
+                <span>Gestioná el presente.</span>
+            </h1>
+
+            <p>
+                Una plataforma diseñada para transformar la gestión
+                de empresas constructoras. Organizá obras, administrá
+                recursos y conectá cada área de tu empresa desde un
+                único lugar.
+            </p>
+
+            <div class="hero-actions">
+
+
+
+                <a href="#nosotros" class="btn-secondary">
+                    Conocer BUILDPRO
+                    <i class="fa-solid fa-chevron-down"></i>
+                </a>
+
+            </div>
+
+            <div class="hero-security">
+
+                <div class="security-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+
+                <div>
+                    <strong>Gestión organizada y segura</strong>
+                    <small>Accesos y funcionalidades según cada perfil.</small>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- REPRESENTACIÓN VISUAL DEL SISTEMA -->
+
+        <div class="hero-visual reveal">
+
+            <div class="visual-glow"></div>
+
+            <div class="dashboard-preview">
+
+                <div class="preview-header">
+
+                    <div class="preview-brand">
+                        <i class="fa-solid fa-cubes-stacked"></i>
+                        BUILDPRO
+                    </div>
+
+                    <div class="preview-status">
+                        <span></span>
+                        Panel de gestión
+                    </div>
+
+                </div>
+
+
+                <div class="preview-content">
+
+                    <div class="preview-heading">
+                        <div>
+                            <small>VISTA GENERAL</small>
+                            <h3>Centro de operaciones</h3>
+                        </div>
+
+                        <i class="fa-solid fa-ellipsis"></i>
+                    </div>
+
+
+                    <div class="preview-stats">
+
+                        <div class="stat-card">
+                            <div class="stat-icon yellow">
+                                <i class="fa-solid fa-building"></i>
+                            </div>
+                            <small>Proyectos</small>
+                            <strong>Obras</strong>
+                            <span>Gestión integral</span>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon blue">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <small>Personal</small>
+                            <strong>Equipo</strong>
+                            <span>Organización</span>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon green">
+                                <i class="fa-solid fa-boxes-stacked"></i>
+                            </div>
+                            <small>Recursos</small>
+                            <strong>Stock</strong>
+                            <span>Control interno</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="preview-main">
+
+                        <div class="preview-panel">
+
+                            <div class="panel-title">
+                                <strong>Áreas de gestión</strong>
+                                <span>BUILDPRO</span>
+                            </div>
+
+                            <div class="preview-row">
+                                <div class="row-icon">
+                                    <i class="fa-solid fa-house"></i>
+                                </div>
+
+                                <div>
+                                    <strong>Obras y proyectos</strong>
+                                    <small>Administración y seguimiento</small>
+                                </div>
+
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </div>
+
+                            <div class="preview-row">
+                                <div class="row-icon">
+                                    <i class="fa-solid fa-file-invoice-dollar"></i>
+                                </div>
+
+                                <div>
+                                    <strong>Presupuestos</strong>
+                                    <small>Información económica</small>
+                                </div>
+
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </div>
+
+                            <div class="preview-row">
+                                <div class="row-icon">
+                                    <i class="fa-solid fa-helmet-safety"></i>
+                                </div>
+
+                                <div>
+                                    <strong>Recursos de obra</strong>
+                                    <small>Materiales y herramientas</small>
+                                </div>
+
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </div>
+
+                        </div>
+
+
+                        <div class="preview-side">
+
+                            <strong>Gestión integral</strong>
+
+                            <div class="circle-progress">
+                                <div>
+                                    <b>360°</b>
+                                    <small>VISIÓN</small>
+                                </div>
+                            </div>
+
+                            <small>
+                                Toda la información organizada
+                                en un mismo entorno.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="preview-footer">
+                    <span>
+                        <i class="fa-solid fa-user-shield"></i>
+                        Permisos por perfil
+                    </span>
+
+                    <span>
+                        <i class="fa-solid fa-desktop"></i>
+                        Plataforma web
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="floating-card floating-one">
+                <i class="fa-solid fa-diagram-project"></i>
+                <div>
+                    <strong>Todo conectado</strong>
+                    <small>Obras y recursos</small>
+                </div>
+            </div>
+
+            <div class="floating-card floating-two">
+                <i class="fa-solid fa-clipboard-check"></i>
+                <div>
+                    <strong>Más organización</strong>
+                    <small>Procesos centralizados</small>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <a href="#nosotros" class="scroll-indicator">
+        <span></span>
+        DESCUBRÍ LA PLATAFORMA
+    </a>
+
+</section>
+
+
+<!-- ================= BARRA DE MÓDULOS ================= -->
+
+<section class="ticker">
+
+    <div class="container ticker-content">
+
+        <span>OBRAS</span>
+        <i class="fa-solid fa-plus"></i>
+
+        <span>CLIENTES</span>
+        <i class="fa-solid fa-plus"></i>
+
+        <span>EMPLEADOS</span>
+        <i class="fa-solid fa-plus"></i>
+
+        <span>PRESUPUESTOS</span>
+        <i class="fa-solid fa-plus"></i>
+
+        <span>MATERIALES</span>
+        <i class="fa-solid fa-plus"></i>
+
+        <span>HERRAMIENTAS</span>
+
+    </div>
+
+</section>
+
+
+<!-- ================= PLATAFORMA ================= -->
+
+<section class="section about" id="nosotros">
+
+    <div class="container">
+
+        <div class="section-heading centered reveal">
+
+            <span class="section-label">CONOCÉ BUILDPRO</span>
+
+            <h2>
+                La gestión de tu empresa,
+                <span>en un solo lugar.</span>
+            </h2>
+
+            <p>
+                BUILDPRO es un sistema web de gestión para empresas
+                constructoras que permite centralizar información,
+                organizar tareas y facilitar la administración de
+                los distintos sectores de la organización.
+            </p>
+
+        </div>
+
+
+        <div class="benefit-grid">
+
+            <article class="benefit-card reveal">
+
+                <div class="benefit-icon">
+                    <i class="fa-solid fa-diagram-project"></i>
+                </div>
+
+                <h3>Información conectada</h3>
+
+                <p>
+                    Relacioná obras, clientes, empleados, presupuestos
+                    y recursos dentro de una misma plataforma.
+                </p>
+
+            </article>
+
+
+            <article class="benefit-card reveal">
+
+                <div class="benefit-icon">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+
+                <h3>Accesos diferenciados</h3>
+
+                <p>
+                    Cada usuario dispone de las herramientas y
+                    funcionalidades correspondientes a su rol.
+                </p>
+
+            </article>
+
+
+            <article class="benefit-card reveal">
+
+                <div class="benefit-icon">
+                    <i class="fa-solid fa-chart-line"></i>
+                </div>
+
+                <h3>Mayor organización</h3>
+
+                <p>
+                    Consultá registros, estados e información
+                    relevante para acompañar la gestión diaria.
+                </p>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= MODULOS ================= -->
+
+<section class="section modules" id="modulos">
+
+    <div class="container">
+
+        <div class="section-heading section-heading-split reveal">
+
+            <div>
+                <span class="section-label">FUNCIONALIDADES</span>
+
+                <h2>
+                    Cada área de tu empresa.
+                    <span>Conectada.</span>
+                </h2>
+            </div>
+
+            <p>
+                Herramientas específicas para administrar los
+                procesos principales de una empresa constructora,
+                desde la planificación hasta el control de recursos.
+            </p>
+
+        </div>
+
+
+        <div class="module-grid">
+
+
+            <article class="module-card module-large reveal">
+
+                <div class="module-top">
+                    <div class="module-icon">
+                        <i class="fa-solid fa-building"></i>
+                    </div>
+
+                    <span>01 / OBRAS</span>
+                </div>
+
+                <h3>Administración de obras</h3>
+
+                <p>
+                    Centralizá los datos de cada proyecto, consultá
+                    sus estados y organizá la información vinculada
+                    a las obras de la empresa.
+                </p>
+
+                <div class="module-tags">
+                    <span>Proyectos</span>
+                    <span>Etapas</span>
+                    <span>Seguimiento</span>
+                </div>
+
+                <div class="blueprint-decoration">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+
+            </article>
+
+
+            <article class="module-card reveal">
+
+                <div class="module-top">
+                    <div class="module-icon">
+                        <i class="fa-solid fa-file-invoice-dollar"></i>
+                    </div>
+
+                    <span>02 / PRESUPUESTOS</span>
+                </div>
+
+                <h3>Gestión de presupuestos</h3>
+
+                <p>
+                    Organizá la información económica y consultá
+                    presupuestos relacionados con las obras.
+                </p>
+
+                <div class="module-decoration">
+                    <i class="fa-solid fa-file-invoice"></i>
+                    <i class="fa-solid fa-calculator"></i>
+                </div>
+
+            </article>
+
+
+            <article class="module-card reveal">
+
+                <div class="module-top">
+                    <div class="module-icon">
+                        <i class="fa-solid fa-boxes-stacked"></i>
+                    </div>
+
+                    <span>03 / MATERIALES</span>
+                </div>
+
+                <h3>Control de materiales</h3>
+
+                <p>
+                    Registrá materiales, controlá existencias,
+                    identificá niveles de stock y consultá
+                    movimientos de inventario.
+                </p>
+
+                <div class="module-bars">
+                    <i></i><i></i><i></i><i></i><i></i><i></i>
+                </div>
+
+            </article>
+
+
+            <article class="module-card reveal">
+
+                <div class="module-top">
+                    <div class="module-icon">
+                        <i class="fa-solid fa-screwdriver-wrench"></i>
+                    </div>
+
+                    <span>04 / HERRAMIENTAS</span>
+                </div>
+
+                <h3>Gestión de herramientas</h3>
+
+                <p>
+                    Administrá solicitudes, disponibilidad,
+                    entregas y devoluciones de herramientas
+                    vinculadas a las obras.
+                </p>
+
+                <div class="module-decoration">
+                    <i class="fa-solid fa-hammer"></i>
+                    <i class="fa-solid fa-screwdriver"></i>
+                </div>
+
+            </article>
+
+
+            <article class="module-card reveal">
+
+                <div class="module-top">
+                    <div class="module-icon">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+
+                    <span>05 / PERSONAS</span>
+                </div>
+
+                <h3>Clientes y empleados</h3>
+
+                <p>
+                    Administrá la información de clientes,
+                    empleados y sus relaciones con los
+                    proyectos de la empresa.
+                </p>
+
+                <div class="people-decoration">
+                    <span>CL</span>
+                    <span>EM</span>
+                    <span>OB</span>
+                    <span>+</span>
+                </div>
+
+            </article>
+
+
+            <article class="module-card reveal">
+
+                <div class="module-top">
+                    <div class="module-icon">
+                        <i class="fa-solid fa-chart-pie"></i>
+                    </div>
+
+                    <span>06 / CONTROL</span>
+                </div>
+
+                <h3>Registros y consultas</h3>
+
+                <p>
+                    Consultá estados, historiales y registros
+                    disponibles para supervisar los procesos
+                    de gestión.
+                </p>
+
+                <div class="module-bars">
+                    <i></i><i></i><i></i><i></i><i></i><i></i>
+                </div>
+
+            </article>
+
+
+            <article class="module-card module-wide reveal">
+
+                <div>
+
+                    <div class="module-top">
+                        <div class="module-icon">
+                            <i class="fa-solid fa-user-lock"></i>
+                        </div>
+
+                        <span>07 / USUARIOS Y PERFILES</span>
+                    </div>
+
+                    <h3>Un espacio para cada responsabilidad</h3>
+
+                    <p>
+                        La administración de usuarios y permisos
+                        permite organizar el acceso a las distintas
+                        funciones del sistema según cada rol.
+                    </p>
+
+                </div>
+
+                <div class="role-tags">
+                    <span>Gerencia</span>
+                    <span>Administración</span>
+                    <span>Obra</span>
+                    <span>Depósito</span>
+                    <span>Clientes</span>
+                </div>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FLUJO ================= -->
+
+<section class="section workflow">
+
+    <div class="container workflow-container">
+
+        <div class="workflow-text reveal">
+
+            <span class="section-label">GESTIÓN ORGANIZADA</span>
+
+            <h2>
+                De la solicitud
+                <span>a la gestión.</span>
+            </h2>
+
+            <p>
+                BUILDPRO permite organizar las tareas cotidianas
+                de la empresa mediante procesos vinculados a
+                cada área y a sus responsables.
+            </p>
+
+
+        </div>
+
+
+        <div class="workflow-steps reveal">
+
+            <article class="step">
+
+                <b>01</b>
+
+                <div class="step-icon">
+                    <i class="fa-solid fa-clipboard-list"></i>
+                </div>
+
+                <div>
+                    <h3>Registrar y organizar</h3>
+                    <p>
+                        Se cargan obras, personas, presupuestos
+                        y recursos.
+                    </p>
+                </div>
+
+                <i class="fa-solid fa-check step-check"></i>
+
+            </article>
+
+
+            <article class="step">
+
+                <b>02</b>
+
+                <div class="step-icon">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                </div>
+
+                <div>
+                    <h3>Gestionar los procesos</h3>
+                    <p>
+                        Se administran solicitudes y movimientos
+                        según cada responsabilidad.
+                    </p>
+                </div>
+
+                <i class="fa-solid fa-check step-check"></i>
+
+            </article>
+
+
+            <article class="step">
+
+                <b>03</b>
+
+                <div class="step-icon">
+                    <i class="fa-solid fa-magnifying-glass-chart"></i>
+                </div>
+
+                <div>
+                    <h3>Consultar y supervisar</h3>
+                    <p>
+                        Se revisan estados, historiales e
+                        información disponible.
+                    </p>
+                </div>
+
+                <i class="fa-solid fa-check step-check"></i>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= PERFILES ================= -->
+
+<section class="section profiles" id="perfiles">
+
+    <div class="container">
+
+        <div class="section-heading centered reveal">
+
+            <span class="section-label">PERFILES DEL SISTEMA</span>
+
+            <h2>
+                Diferentes funciones.
+                <span>Un mismo objetivo.</span>
+            </h2>
+
+            <p>
+                BUILDPRO contempla distintos perfiles de usuario
+                para distribuir funciones y accesos de acuerdo
+                con las responsabilidades de cada sector.
+            </p>
+
+        </div>
+
+
+        <div class="profile-grid">
+
+            <article class="profile-card reveal">
+                <i class="fa-solid fa-user-gear"></i>
+                <h3>Gerente</h3>
+                <p>
+                    Supervisión general y consulta de información
+                    de gestión.
+                </p>
+            </article>
+
+            <article class="profile-card reveal">
+                <i class="fa-solid fa-briefcase"></i>
+                <h3>Administrativo</h3>
+                <p>
+                    Información administrativa, clientes,
+                    empleados y presupuestos.
+                </p>
+            </article>
+
+            <article class="profile-card reveal">
+                <i class="fa-solid fa-helmet-safety"></i>
+                <h3>Jefe de obra</h3>
+                <p>
+                    Gestión y seguimiento de las obras
+                    asignadas.
+                </p>
+            </article>
+
+            <article class="profile-card reveal">
+                <i class="fa-solid fa-people-group"></i>
+                <h3>Capataz</h3>
+                <p>
+                    Funciones operativas y solicitudes
+                    vinculadas a su obra.
+                </p>
+            </article>
+
+            <article class="profile-card reveal">
+                <i class="fa-solid fa-warehouse"></i>
+                <h3>Encargado de depósito</h3>
+                <p>
+                    Control de materiales, solicitudes,
+                    entregas y herramientas.
+                </p>
+            </article>
+
+            <article class="profile-card reveal">
+                <i class="fa-solid fa-user"></i>
+                <h3>Cliente</h3>
+                <p>
+                    Acceso al portal para consultar la
+                    información habilitada de sus proyectos.
+                </p>
+            </article>
+
+            <article class="profile-card reveal">
+                <i class="fa-solid fa-hard-hat"></i>
+                <h3>Empleado</h3>
+                <p>
+                    Acceso a las funciones habilitadas
+                    para su perfil.
+                </p>
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= PORTAL CLIENTE ================= -->
+
+<section class="client-section">
+
+    <div class="container client-container">
+
+        <div class="client-preview reveal">
+
+            <div class="client-preview-top">
+                <span></span>
+                <span></span>
+                <span></span>
+                <b>PORTAL DEL CLIENTE</b>
+            </div>
+
+            <div class="client-preview-content">
+
+                <small>MI PROYECTO</small>
+
+                <h3>Tu obra, más cerca.</h3>
+
+                <div class="progress-bar">
+                    <span></span>
+                </div>
+
+                <div class="progress-description">
+                    <strong>Seguimiento de obra</strong>
+                    <span>Información disponible</span>
+                </div>
+
+                <div class="client-options">
+
+                    <div>
+                        <i class="fa-regular fa-image"></i>
+                        <span>Fotografías</span>
+                    </div>
+
+                    <div>
+                        <i class="fa-regular fa-folder-open"></i>
+                        <span>Documentación</span>
+                    </div>
+
+                    <div>
+                        <i class="fa-solid fa-file-invoice-dollar"></i>
+                        <span>Presupuestos</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="client-description reveal">
+
+            <span class="section-label">PORTAL DEL CLIENTE</span>
+
+            <h2>
+                Su proyecto.
+                <span>Más accesible.</span>
+            </h2>
+
+            <p>
+                BUILDPRO también contempla un espacio destinado
+                a los clientes de la empresa, donde pueden consultar
+                la información habilitada de sus proyectos desde
+                un acceso independiente.
+            </p>
+
+          
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CTA ================= -->
+
+<section class="section final-cta">
+
+    <div class="container">
+
+        <div class="cta-box reveal">
+
+            <span>BUILDPRO · GESTIÓN CONSTRUCTIVA</span>
+
+            <h2>
+                Organizá cada proyecto.
+                <br>
+                <strong>Impulsá tu gestión.</strong>
+            </h2>
+
+            <p>
+                Accedé a una plataforma que reúne las principales
+                herramientas de gestión de una empresa constructora.
+            </p>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer">
+
+    <div class="container footer-main">
+
+        <a href="#inicio" class="logo">
+
+            <div class="logo-icon">
+                <i class="fa-solid fa-cubes-stacked"></i>
+            </div>
+
+            <div class="logo-text">
+                BUILD<span>PRO</span>
+                <small>GESTIÓN CONSTRUCTIVA</small>
+            </div>
+
+        </a>
+
+        <p>
+            Una plataforma para organizar la gestión de obras,
+            personas y recursos de construcción.
+        </p>
+
+        <a href="#inicio" class="back-top">
+            Volver arriba
+            <i class="fa-solid fa-arrow-up"></i>
+        </a>
+
+    </div>
+
+
+    <div class="container footer-bottom">
+
+        <span>
+            © <b id="currentYear"></b> BUILDPRO.
+            Todos los derechos reservados.
+        </span>
+
+        <span>Gestión inteligente de obras.</span>
+
+    </div>
+
+</footer>
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const header = document.getElementById("header");
+    const menuToggle = document.getElementById("menuToggle");
+    const nav = document.getElementById("nav");
+    const navLinks = document.querySelectorAll(".nav-link");
+    const sections = document.querySelectorAll("main section[id]");
+
+    // Año automático del footer
+    const currentYear = document.getElementById("currentYear");
+
+    if (currentYear) {
+        currentYear.textContent = new Date().getFullYear();
+    }
+
+
+    // Header al hacer scroll
+    function updateHeader() {
+
+        if (window.scrollY > 30) {
+            header.classList.add("scrolled");
+        } else {
+            header.classList.remove("scrolled");
+        }
+
+    }
+
+    window.addEventListener("scroll", updateHeader);
+
+    updateHeader();
+
+
+    // Menú responsive
+    menuToggle.addEventListener("click", () => {
+
+        const isOpen = nav.classList.toggle("open");
+
+        menuToggle.innerHTML = isOpen
+            ? '<i class="fa-solid fa-xmark"></i>'
+            : '<i class="fa-solid fa-bars"></i>';
+
+        menuToggle.setAttribute("aria-expanded", isOpen);
+
+    });
+
+
+    // Cerrar menú al seleccionar una sección
+    navLinks.forEach(link => {
+
+        link.addEventListener("click", () => {
+
+            nav.classList.remove("open");
+
+            menuToggle.innerHTML =
+                '<i class="fa-solid fa-bars"></i>';
+
+            menuToggle.setAttribute("aria-expanded", "false");
+
+        });
+
+    });
+
+
+    // Animaciones de aparición
+    const revealElements = document.querySelectorAll(".reveal");
+
+    const revealObserver = new IntersectionObserver((entries) => {
+
+        entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+
+                entry.target.classList.add("visible");
+
+                revealObserver.unobserve(entry.target);
+
+            }
+
+        });
+
+    }, {
+        threshold: 0.12
+    });
+
+    revealElements.forEach(element => {
+        revealObserver.observe(element);
+    });
+
+
+    // Marcar enlace activo según sección visible
+    const sectionObserver = new IntersectionObserver((entries) => {
+
+        entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+
+                const sectionId = entry.target.getAttribute("id");
+
+                navLinks.forEach(link => {
+
+                    link.classList.remove("active");
+
+                    if (link.getAttribute("href") === `#${sectionId}`) {
+                        link.classList.add("active");
+                    }
+
+                });
+
+            }
+
+        });
+
+    }, {
+        rootMargin: "-35% 0px -55% 0px"
+    });
+
+    sections.forEach(section => {
+        sectionObserver.observe(section);
+    });
+
+
+    // Cerrar menú si se cambia a pantalla grande
+    window.addEventListener("resize", () => {
+
+        if (window.innerWidth > 850) {
+
+            nav.classList.remove("open");
+
+            menuToggle.innerHTML =
+                '<i class="fa-solid fa-bars"></i>';
+
+            menuToggle.setAttribute("aria-expanded", "false");
+
+        }
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
